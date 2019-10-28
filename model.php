@@ -22,11 +22,22 @@ function getEtudiants(){
     $res = $conn -> query ("SELECT * FROM etudiant");
     return $res;
 
+
+}
+
+function getFormations(){
+    global $conn;
+    $res = $conn -> query ("SELECT * FROM formation");
+    return $res;
+    
+
 }
 
 function getEtudiantsByNom($nom){
     global $conn;
-    $res = $conn -> prepare ("SELECT * FROM etudiant WHERE nom = " . $nom);
+    $res = $conn -> prepare ("SELECT * FROM etudiant WHERE nom = :nom");
+    $res->bindParam(":nom", $nom);
+    $res-> execute (); 
     return $res;
 
 }
